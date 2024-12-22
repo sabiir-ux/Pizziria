@@ -117,7 +117,7 @@ body {
 <body>
     <div class="sign-in-container">
         <h1>Sign In</h1>
-        <form action="{{ route('login') }}" method="POST">
+        <form action="{{ route('log') }}" method="get">
             @csrf
             <input type="email" name="email" placeholder="Email" required>
             <input type="password" name="password" placeholder="Password" required>
