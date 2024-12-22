@@ -81,11 +81,19 @@
         }
     </style>
 </head>
+
 <body>
     <div class="dashboard-container">
         <!-- Product Management Section -->
         <div class="section">
-            <h2> Produits & Stock Management</h2>
+            <h2>Produits & Stock Management</h2>
+            
+            @if(session('success'))
+                <div style="color: green; text-align: center; margin-bottom: 10px;">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <table>
                 <thead>
                     <tr>
@@ -95,55 +103,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Example product rows (this will be dynamic from your database) -->
+                    @foreach($products as $product)
                     <tr>
-                        <td>Pizza Dough</td>
-                        <td>100</td>
+                        <td>{{ $product->name }}</td>
                         <td>
-                            <button class="button">Update Stock</button>
+                            <form action="{{ route('products.updateStock', $product->id) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('PATCH')
+                                <input type="number" name="stock_quantity" value="{{ $product->stock_quantity }}" min="0" style="width: 80px;">
+                        </td>
+                        <td>
+                                <button type="submit" class="button">Update Stock</button>
+                            </form>
                         </td>
                     </tr>
-                    <tr>
-                        <td>Cheese</td>
-                        <td>50</td>
-                        <td>
-                            <button class="button">Update Stock</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Order Management Section -->
-        <div class="section">
-            <h2> Commandes Traking</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Order ID</th>
-                        <th>Customer Name</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Example orders (this will be dynamic from your database) -->
-                    <tr>
-                        <td>001</td>
-                        <td>John Doe</td>
-                        <td>Pending</td>
-                        <td>
-                            <button class="button">Mark as Processed</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>002</td>
-                        <td>Jane Smith</td>
-                        <td>Pending</td>
-                        <td>
-                            <button class="button">Mark as Processed</button>
-                        </td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

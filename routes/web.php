@@ -40,5 +40,9 @@ Route::get('/dashboard', function () {
 })->middleware('auth')->name('dashboard');
 
 
+use App\Http\Controllers\ProductController;
 
+// Make sure to add this use statement at the top
 
+Route::get('/caissier', [ProductController::class, 'index'])->name('view.caissier');
+Route::patch('/products/{product}/update-stock', [ProductController::class, 'updateStock'])->name('products.updateStock');
