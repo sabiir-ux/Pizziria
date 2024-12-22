@@ -44,5 +44,15 @@ use App\Http\Controllers\ProductController;
 
 // Make sure to add this use statement at the top
 
-Route::get('/caissier', [ProductController::class, 'index'])->name('view.caissier');
-Route::patch('/products/{product}/update-stock', [ProductController::class, 'updateStock'])->name('products.updateStock');
+
+
+    // Caissier routes
+    Route::get('/caissier', [CaissierController::class, 'index'])->name('view.caissier');
+    Route::patch('/products/{product}/update-stock', [CaissierController::class, 'updateStock'])->name('products.updateStock');
+    Route::get('/orders', [CaissierController::class, 'orders'])->name('orders.index');
+    Route::patch('/orders/{order}/status', [CaissierController::class, 'updateOrderStatus'])->name('orders.updateStatus');
+    Route::get('/products/search', [CaissierController::class, 'searchProducts'])->name('products.search');
+    Route::get('/products/low-stock', [CaissierController::class, 'getLowStockProducts'])->name('products.lowStock');
+    Route::get('/orders/{order}', [CaissierController::class, 'showOrderDetails'])->name('orders.show');
+    Route::get('/order-stats', [CaissierController::class, 'getOrderStats'])->name('orders.stats');
+    Route::post('/orders', [CaissierController::class, 'createOrder'])->name('orders.create');
