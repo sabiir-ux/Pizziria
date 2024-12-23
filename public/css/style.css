@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Site Metas -->
+    <title>Pizzeria</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="{{ asset('images/apple-touch-icon.png') }}">
+
+
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+
+            background-color: #f9f9f9;
+        }
+
+        .navbar {
+            align-items: center;
+            background-color: initial;
+            display: flex;
+            height: auto;
+            justify-content: space-between;
+            left: 0;
+            margin: 0 auto;
+            max-width: 1290px;
+            padding: 2.7rem 2rem;
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 100%;
+            z-index: 99999;
+        }
+
+        .navbar-img {
+            width: 145px;
+        }
+
+        .navbar-img img {
+            height: 100%;
+            width: 100%;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 2.1rem;
+            list-style: none;
+        }
+
+        .navbar-links a {
+            color: #010103;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all .3s;
+        }
+
+        .navbar-buttons {
+            align-items: center;
+            display: flex;
+            font-size: 16px;
+            font-weight: 500;
+            gap: 2.5rem;
+        }
+
+        .navbar-buttons-sign-in {
+            color: #010103;
+            cursor: pointer;
+            transition: all .3s;
+        }
+
+        .navbar-buttons-register {
+            background-color: #070750;
+            border-radius: 3px;
+            color: #fff;
+            padding: 1rem 2rem;
+            transition: all .3s;
+        }
+
+        /* Preloader */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #loader {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #333;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Banner */
+        .main-banner {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .slider-img-full img {
+            width: 100%;
+            height: auto;
+            max-height: 100px;
+            /* Limit slider image height */
+            object-fit: cover;
+        }
+
+        .slider-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #fff;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+        }
+
+        .slider-content h2 {
+            font-size: 2.5rem;
+        }
+
+        .slider-content p {
+            color: #ddd;
+            margin: 15px 0;
+        }
+
+        /* About Section */
+        #about {
+            padding: 60px 20px;
+            background-color: #fff;
+        }
+
+        #about .row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        #about .message-box {
+            padding: 20px;
+        }
+
+        #about .message-box h2 {
+            font-size: 2rem;
+            color: #333;
+        }
+
+        #about .message-box p {
+            margin: 15px 0;
+        }
+
+        #about ul {
+            list-style: disc;
+            padding-left: 20px;
+            margin: 15px 0;
+        }
+
+        #about ul li {
+            margin-bottom: 10px;
+        }
+
+        #about .right-box-pro img {
+            width: 500px;
+            max-height: 500px;
+            border-radius: 8px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Menu Section */
+        #menu {
+            padding: 60px 20px;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+
+        #menu .section-title h3 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        #menu .services-inner-box {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 15px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #menu .services-inner-box img {
+            width: 200px;
+            max-height: 200px;
+            border-radius: 8px;
+            margin: 0 auto 15px;
+            display: block;
+        }
+
+        #menu .services-inner-box h2 {
+            font-size: 1.25rem;
+            color: #333;
+            margin: 10px 0;
+        }
+
+        #menu .services-inner-box a {
+            color: #fff;
+            background-color: #333;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        #menu .services-inner-box a:hover {
+            background-color: #FFD700;
+        }
+
+        /* Footer */
+        .copyrights {
+            background-color: #333;
+            color: #fff;
+            padding: 15px 20px;
+            text-align: center;
+        }
+
+
+        /* Scroll-to-top */
+        #scroll-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 50%;
+            text-align: center;
+            cursor: pointer;
+            display: none;
+        }
+
+        #scroll-to-top:hover {
+            background-color: #FFD700;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <div class="navbar">
+                <div class="navbar-img">
+                    <a href="#"><img src="images/logocar.png" alt="" /></a>
+                </div>
+                <ul class="navbar-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="pages/about.html">About</a></li>
+                    <li><a href="pages/models.html">Vehicle Models</a></li>
+                    <li><a href="pages/contact.html">Contact</a></li>
+                </ul>
+
+                <div class="navbar-buttons">
+                    <a class="navbar-buttons-sign-in" href="#">Sign-In</a>
+                    <a class="navbar-buttons-register" href="/register">Register</a>
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+
+    <!-- Home Section -->
+    <section id="home" class="main-banner">
+        <div class="slider">
+            <div class="slider-item">
+                <img src="{{ asset('images/slider-01.jpg') }}" alt="Delicious meal served at the restaurant"
+                    class="slider-img">
+                <div class="slider-content container">
+                    <h2 class="slider-title">La pizza, notre passion.</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <div id="about" class="section lb">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="message-box">
+                        <h2>Welcome to Green Special Restaurant</h2>
+                        <p>We strive to provide the best dining experience for all your needs.</p>
+                        <ul>
+                            <li>We provide top-notch quality with attention to detail.</li>
+                            <li>Our approach focuses on efficiency and effectiveness.</li>
+                            <li>Every solution is tailored to meet your specific needs.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="right-box-pro">
+                        <img src="{{ asset('images/about_01.png') }}" alt="About Us Image"
+                            class="img-fluid img-rounded">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menu Section -->
+    <div id="menu" class="section lb">
+        <div class="container-fluid">
+            <div class="section-title text-center">
+                <h3>Menu</h3>
+                <p>Explore our variety of dishes tailored to satisfy your taste buds.</p>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="services-inner-box">
+                        <div class="ser-icon">
+                            <img src="{{ asset('images/peperoni.jpg') }}" class="img-fluid" alt="Dish Image 1" />
+                        </div>
+                        <h2>Pizza Peperoni</h2>
+                        <a href="#">$6.00</a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="services-inner-box">
+                        <div class="ser-icon">
+                            <img src="{{ asset('images/mer.jpg') }}" class="img-fluid" alt="Dish Image 2" />
+                        </div>
+                        <h2>Pizza Fruits de mer</h2>
+                        <a href="#">$8.00</a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="services-inner-box">
+                        <div class="ser-icon">
+                            <img src="{{ asset('images/margarita.jpg') }}" class="img-fluid" alt="Recipe 3" />
+                        </div>
+                        <h2>Pizza Margarita</h2>
+                        <a href="#">$5.00</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="copyrights">
+        <div class="container-fluid">
+            <div class="footer-distributed">
+                <div class="footer-left">
+
+                    <p class="footer-company-name">All Rights Reserved. &copy; 2024</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+
+</html>
